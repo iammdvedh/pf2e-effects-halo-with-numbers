@@ -2,6 +2,7 @@ import { EffectTextureSpritesheet } from "effect-texture-spritesheet.ts";
 import { TokenPF2e } from "foundry-pf2e";
 import { addPoint, getFlag, MODULE, subtractPoint, SYSTEM } from "foundry-pf2e/utilities";
 import { Circle, Ellipse, Point } from "shapes.ts";
+import { Text } from 'pixi.js';
 
 type TokenEffects = PIXI.Container & {
     bg: PIXI.Graphics;
@@ -125,9 +126,20 @@ export function createRoundedEffectIcon(effectIcon: PIXI.Sprite) {
     container.width = textureSize;
     container.height = textureSize;
 
+    const basicText = new Text({
+    text: '1',
+    style: {
+        fontFamily: 'Arial',
+        fontSize: 24,
+        fill: 0xff1010,
+        align: 'right',
+    }
+    });
+    
     container.addChild(createBG(textureSize, borderWidth));
     container.addChild(effectIcon);
-
+    container.addChild(basicText);
+    
     const effectSize = textureSize - 6 * borderWidth;
     const scale = effectSize / Math.max(texture.height, texture.width);
     effectIcon.scale.set(scale, scale);
